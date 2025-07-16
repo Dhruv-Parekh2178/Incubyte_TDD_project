@@ -1,4 +1,4 @@
-let addSweet,getAllSweets, deleteSweet, searchByName, searchByCategory;
+let addSweet,getAllSweets, deleteSweet, searchByName, searchByCategory, searchByPriceRange;
 
 beforeEach(() => {
   jest.resetModules();
@@ -10,6 +10,7 @@ beforeEach(() => {
    deleteSweet = sweetShop.deleteSweet;
    searchByName = sweetShop.searchByName;
     searchByCategory = sweetShop.searchByCategory;
+    searchByPriceRange = sweetShop.searchByPriceRange;
 });
 
 
@@ -156,3 +157,38 @@ test('should search sweets by category', () => {
   expect(result.map(s => s.name)).toContain('Badam Barfi');
 });
 
+test('should search sweets within a price range', () => {
+  const sweet1 = {
+    id: 5001,
+    name: 'Kaju Katli',
+    category: 'Nut-Based',
+    price: 50,
+    quantity: 20
+  };
+
+  const sweet2 = {
+    id: 5002,
+    name: 'Gulab Jamun',
+    category: 'Milk-Based',
+    price: 30,
+    quantity: 50
+  };
+
+  const sweet3 = {
+    id: 5003,
+    name: 'Rasgulla',
+    category: 'Milk-Based',
+    price: 20,
+    quantity: 40
+  };
+
+  addSweet(sweet1);
+  addSweet(sweet2);
+  addSweet(sweet3);
+
+  const result = searchByPriceRange(20, 35);
+
+  expect(result.length).toBe(2);
+  expect(result.map(s => s.name)).toContain('Gulab Jamun');
+  expect(result.map(s => s.name)).toContain('Rasgulla');
+});

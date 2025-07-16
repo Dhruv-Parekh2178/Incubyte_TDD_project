@@ -39,11 +39,17 @@ function searchByCategory(category) {
   );
 }
 
+function searchByPriceRange(min, max) {
+  return getSweetList().filter((s) => s.price >= min && s.price <= max);
+}
+
+
 module.exports = {
   addSweet,
   getAllSweets,
   deleteSweet,
   searchByName,
   searchByCategory,
+  searchByPriceRange,
   __resetSweets,
 };
