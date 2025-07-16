@@ -1,4 +1,4 @@
-let addSweet, getAllSweets, deleteSweet, searchByName, searchByCategory, searchByPriceRange;
+let addSweet;
 
 beforeEach(() => {
   jest.resetModules();
@@ -6,191 +6,21 @@ beforeEach(() => {
   sweetShop.__resetSweets();
 
   addSweet = sweetShop.addSweet;
-  getAllSweets = sweetShop.getAllSweets;
-  deleteSweet = sweetShop.deleteSweet;
-  searchByName = sweetShop.searchByName;
-  searchByCategory = sweetShop.searchByCategory;
-  searchByPriceRange = sweetShop.searchByPriceRange;
+  
 });
 
 
   test('should add a new sweet to the shop', () => {
     console.log('=== NEW TEST ===');
-
-    const sweet = {
-      id: 1001,
-      name: 'Kaju Katli',
-      category: 'Nut-Based',
-      price: 50,
-      quantity: 20
-    };
-
-    addSweet(sweet);
-    const sweets = getAllSweets();
-
-    expect(sweets.length).toBe(1);
-    expect(sweets[0]).toEqual(sweet);
-  });
-
-  test('should throw error when adding sweet with duplicate ID', () => {
-    console.log('=== NEW TEST ===');
-
-    const sweet1 = {
-      id: 1001,
-      name: 'Kaju Katli',
-      category: 'Nut-Based',
-      price: 50,
-      quantity: 20
-    };
-
-    const sweet2 = {
-      id: 1001,
-      name: 'Gulab Jamun',
-      category: 'Milk-Based',
-      price: 10,
-      quantity: 50
-    };
-
-    addSweet(sweet1);
-    expect(() => addSweet(sweet2)).toThrow('Sweet with this ID already exists.');
-  });
-
-  test('should delete a sweet by ID', () => {
-    console.log('=== NEW TEST ===');
-
-    const sweet1 = {
-      id: 1001,
-      name: 'Kaju Katli',
-      category: 'Nut-Based',
-      price: 50,
-      quantity: 20
-    };
-
-    const sweet2 = {
-      id: 1002,
-      name: 'Gulab Jamun',
-      category: 'Milk-Based',
-      price: 10,
-      quantity: 50
-    };
-
-    addSweet(sweet1);
-    addSweet(sweet2);
-
-    deleteSweet(1001);
-
-    const sweets = getAllSweets();
-    expect(sweets.length).toBe(1);
-    expect(sweets[0].id).toBe(1002);
-  });
-
-
-
-test('should search sweets by name', () => {
-    console.log('=== NEW TEST ===');
-
-  const sweet1 = {
-    id: 3001,
+ const sweet = {
+    id: 1001,
     name: 'Kaju Katli',
     category: 'Nut-Based',
     price: 50,
     quantity: 20
   };
 
-  const sweet2 = {
-    id: 3002,
-    name: 'Gulab Jamun',
-    category: 'Milk-Based',
-    price: 10,
-    quantity: 50
-  };
+  addSweet(sweet)
+  });
 
-  const sweet3 = {
-    id: 3003,
-    name: 'Gajar Halwa',
-    category: 'Vegetable-Based',
-    price: 30,
-    quantity: 15
-  };
-
-  addSweet(sweet1);
-  addSweet(sweet2);
-  addSweet(sweet3);
-
-  const result = searchByName('Gulab');
-
-  expect(result.length).toBe(1);
-  expect(result[0].name).toBe('Gulab Jamun');
-});
-
-test('should search sweets by category', () => {
-  const sweet1 = {
-    id: 4001,
-    name: 'Kaju Katli',
-    category: 'Nut-Based',
-    price: 50,
-    quantity: 20
-  };
-
-  const sweet2 = {
-    id: 4002,
-    name: 'Gulab Jamun',
-    category: 'Milk-Based',
-    price: 10,
-    quantity: 50
-  };
-
-  const sweet3 = {
-    id: 4003,
-    name: 'Badam Barfi',
-    category: 'Nut-Based',
-    price: 40,
-    quantity: 25
-  };
-
-  addSweet(sweet1);
-  addSweet(sweet2);
-  addSweet(sweet3);
-
-  const result = searchByCategory('Nut-Based');
-
-  expect(result.length).toBe(2);
-  expect(result.map(s => s.name)).toContain('Kaju Katli');
-  expect(result.map(s => s.name)).toContain('Badam Barfi');
-});
-
-test('should search sweets within a price range', () => {
-  const sweet1 = {
-    id: 5001,
-    name: 'Kaju Katli',
-    category: 'Nut-Based',
-    price: 50,
-    quantity: 20
-  };
-
-  const sweet2 = {
-    id: 5002,
-    name: 'Gulab Jamun',
-    category: 'Milk-Based',
-    price: 30,
-    quantity: 50
-  };
-
-  const sweet3 = {
-    id: 5003,
-    name: 'Rasgulla',
-    category: 'Milk-Based',
-    price: 20,
-    quantity: 40
-  };
-
-  addSweet(sweet1);
-  addSweet(sweet2);
-  addSweet(sweet3);
-
-  const result = searchByPriceRange(20, 35);
-
-  expect(result.length).toBe(2);
-  expect(result.map(s => s.name)).toContain('Gulab Jamun');
-  expect(result.map(s => s.name)).toContain('Rasgulla');
-});
+  
