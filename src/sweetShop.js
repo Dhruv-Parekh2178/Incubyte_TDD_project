@@ -43,6 +43,17 @@ function searchByPriceRange(min, max) {
   return getSweetList().filter((s) => s.price >= min && s.price <= max);
 }
 
+function searchSweets({ name, category, minPrice, maxPrice }) {
+  return getSweetList().filter((sweet) => {
+    const matchName = name ? sweet.name.toLowerCase().includes(name.toLowerCase()) : true;
+    const matchCategory = category ? sweet.category.toLowerCase() === category.toLowerCase() : true;
+    const matchPrice =
+      (minPrice === undefined || sweet.price >= minPrice) &&
+      (maxPrice === undefined || sweet.price <= maxPrice);
+
+    return matchName && matchCategory && matchPrice;
+  });
+}
 
 module.exports = {
   addSweet,
@@ -51,5 +62,6 @@ module.exports = {
   searchByName,
   searchByCategory,
   searchByPriceRange,
+    searchSweets,
   __resetSweets,
 };

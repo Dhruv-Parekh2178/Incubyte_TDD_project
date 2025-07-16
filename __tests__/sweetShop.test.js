@@ -1,4 +1,4 @@
-let addSweet,getAllSweets, deleteSweet, searchByName, searchByCategory, searchByPriceRange;
+let addSweet,getAllSweets, deleteSweet, searchByName, searchByCategory, searchByPriceRange, searchSweets;
 
 beforeEach(() => {
   jest.resetModules();
@@ -11,6 +11,7 @@ beforeEach(() => {
    searchByName = sweetShop.searchByName;
     searchByCategory = sweetShop.searchByCategory;
     searchByPriceRange = sweetShop.searchByPriceRange;
+    searchSweets = sweetShop.searchSweets;
 });
 
 
@@ -191,4 +192,22 @@ test('should search sweets within a price range', () => {
   expect(result.length).toBe(2);
   expect(result.map(s => s.name)).toContain('Gulab Jamun');
   expect(result.map(s => s.name)).toContain('Rasgulla');
+});
+
+test('should search sweets using multiple filters', () => {
+  const sweet1 = { id: 6001, name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 };
+  const sweet2 = { id: 6002, name: 'Gulab Jamun', category: 'Milk-Based', price: 30, quantity: 50 };
+  const sweet3 = { id: 6003, name: 'Badam Barfi', category: 'Nut-Based', price: 40, quantity: 15 };
+  const sweet4 = { id: 6004, name: 'Mysore Pak', category: 'Gram-Based', price: 35, quantity: 25 };
+
+  addSweet(sweet1);
+  addSweet(sweet2);
+  addSweet(sweet3);
+  addSweet(sweet4);
+
+  const result = searchSweets({ category: 'Nut-Based', minPrice: 35, maxPrice: 50 });
+
+  expect(result.length).toBe(2);
+  expect(result.map(s => s.name)).toContain('Kaju Katli');
+  expect(result.map(s => s.name)).toContain('Badam Barfi');
 });
