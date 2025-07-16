@@ -58,3 +58,25 @@ expect(sweets[0]).toEqual(sweet);
     expect(sweets[0].id).toBe(1002);
   });
 
+test('should throw error when adding sweet with duplicate ID', () => {
+    console.log('=== NEW TEST ===');
+
+    const sweet1 = {
+      id: 1001,
+      name: 'Kaju Katli',
+      category: 'Nut-Based',
+      price: 50,
+      quantity: 20
+    };
+
+    const sweet2 = {
+      id: 1001,
+      name: 'Gulab Jamun',
+      category: 'Milk-Based',
+      price: 10,
+      quantity: 50
+    };
+
+    addSweet(sweet1);
+    expect(() => addSweet(sweet2)).toThrow('Sweet with this ID already exists.');
+  });
