@@ -19,9 +19,15 @@ function __resetSweets() {
 function getAllSweets() {
   return getSweetList();
 }
+function deleteSweet(id) {
+  const updated = getSweetList().filter((s) => s.id !== id);
+  setSweetList(updated);
+}
+
 
 module.exports = {
   addSweet,
     getAllSweets,
+    deleteSweet,
   __resetSweets
 };
