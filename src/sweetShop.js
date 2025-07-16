@@ -25,9 +25,17 @@ function deleteSweet(id) {
 }
 
 
+function searchByName(name) {
+  return getSweetList().filter((s) =>
+    s.name.toLowerCase().includes(name.toLowerCase())
+  );
+}
+
+
 module.exports = {
   addSweet,
     getAllSweets,
     deleteSweet,
+    searchByName,
   __resetSweets
 };
