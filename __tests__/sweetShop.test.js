@@ -1,4 +1,4 @@
-let addSweet,getAllSweets, deleteSweet, searchByName;
+let addSweet,getAllSweets, deleteSweet, searchByName, searchByCategory;
 
 beforeEach(() => {
   jest.resetModules();
@@ -9,6 +9,7 @@ beforeEach(() => {
   getAllSweets = sweetShop.getAllSweets;
    deleteSweet = sweetShop.deleteSweet;
    searchByName = sweetShop.searchByName;
+    searchByCategory = sweetShop.searchByCategory;
 });
 
 
@@ -117,5 +118,41 @@ test('should throw error when adding sweet with duplicate ID', () => {
 
   expect(result.length).toBe(1);
   expect(result[0].name).toBe('Gulab Jamun');
+});
+
+test('should search sweets by category', () => {
+  const sweet1 = {
+    id: 4001,
+    name: 'Kaju Katli',
+    category: 'Nut-Based',
+    price: 50,
+    quantity: 20
+  };
+
+  const sweet2 = {
+    id: 4002,
+    name: 'Gulab Jamun',
+    category: 'Milk-Based',
+    price: 10,
+    quantity: 50
+  };
+
+  const sweet3 = {
+    id: 4003,
+    name: 'Badam Barfi',
+    category: 'Nut-Based',
+    price: 40,
+    quantity: 25
+  };
+
+  addSweet(sweet1);
+  addSweet(sweet2);
+  addSweet(sweet3);
+
+  const result = searchByCategory('Nut-Based');
+
+  expect(result.length).toBe(2);
+  expect(result.map(s => s.name)).toContain('Kaju Katli');
+  expect(result.map(s => s.name)).toContain('Badam Barfi');
 });
 
