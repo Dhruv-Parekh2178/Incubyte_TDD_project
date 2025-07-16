@@ -1,4 +1,4 @@
-let addSweet;
+let addSweet,getAllSweets;
 
 beforeEach(() => {
   jest.resetModules();
@@ -6,7 +6,7 @@ beforeEach(() => {
   sweetShop.__resetSweets();
 
   addSweet = sweetShop.addSweet;
-  
+  getAllSweets = sweetShop.getAllSweets;
 });
 
 
@@ -21,6 +21,11 @@ beforeEach(() => {
   };
 
   addSweet(sweet)
+
+  const sweets = getAllSweets();
+expect(sweets.length).toBe(1);
+expect(sweets[0]).toEqual(sweet);
+
   });
 
   

@@ -16,7 +16,12 @@ function __resetSweets() {
   setSweetList([]);
 }
 
+function getAllSweets() {
+  return getSweetList();
+}
+
 module.exports = {
   addSweet,
+    getAllSweets,
   __resetSweets
 };
