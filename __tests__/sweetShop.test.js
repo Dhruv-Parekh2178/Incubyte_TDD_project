@@ -6,7 +6,8 @@ let addSweet,
   searchByPriceRange,
   searchSweets,
   sortSweets,
-  purchaseSweet;
+  purchaseSweet,
+  restockSweet;
 
 beforeEach(() => {
   jest.resetModules();
@@ -22,6 +23,7 @@ beforeEach(() => {
   searchSweets = sweetShop.searchSweets;
   sortSweets = sweetShop.sortSweets;
   purchaseSweet = sweetShop.purchaseSweet;
+  restockSweet = sweetShop.restockSweet;
 });
 
 test("should add a new sweet to the shop", () => {
@@ -316,4 +318,22 @@ test('should not allow purchase if insufficient quantity', () => {
   const { purchaseSweet } = require('../src/sweetShop');
 
   expect(() => purchaseSweet(8002, 10)).toThrow('Not enough stock available.');
+});
+
+test('should restock a sweet and increase quantity', () => {
+  const sweet = {
+    id: 9001,
+    name: 'Soan Papdi',
+    category: 'Flour-Based',
+    price: 20,
+    quantity: 10
+  };
+
+  addSweet(sweet);
+
+  const { restockSweet, getAllSweets } = require('../src/sweetShop');
+
+  restockSweet(9001, 5);
+  const updated = getAllSweets().find(s => s.id === 9001);
+  expect(updated.quantity).toBe(15);
 });

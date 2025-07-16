@@ -89,6 +89,15 @@ function purchaseSweet(id, quantityToBuy) {
   sweet.quantity -= quantityToBuy;
 }
 
+function restockSweet(id, quantityToAdd) {
+  const sweet = getSweetList().find(s => s.id === id);
+
+  if (!sweet) {
+    throw new Error('Sweet not found.');
+  }
+
+  sweet.quantity += quantityToAdd;
+}
 
 module.exports = {
   addSweet,
@@ -100,5 +109,6 @@ module.exports = {
     searchSweets,
     sortSweets,
     purchaseSweet,
+    restockSweet,
   __resetSweets,
 };
