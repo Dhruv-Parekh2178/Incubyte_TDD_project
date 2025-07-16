@@ -55,6 +55,27 @@ function searchSweets({ name, category, minPrice, maxPrice }) {
   });
 }
 
+function sortSweets(field, order = 'asc') {
+  const sorted = [...getSweetList()].sort((a, b) => {
+    if (field === 'price' || field === 'quantity') {
+      return order === 'asc' ? a[field] - b[field] : b[field] - a[field];
+    }
+
+    if (field === 'name' || field === 'category') {
+      const valA = a[field].toLowerCase();
+      const valB = b[field].toLowerCase();
+      if (valA < valB) return order === 'asc' ? -1 : 1;
+      if (valA > valB) return order === 'asc' ? 1 : -1;
+      return 0;
+    }
+
+    return 0; // Default case
+  });
+
+  return sorted;
+}
+
+
 module.exports = {
   addSweet,
   getAllSweets,
@@ -63,5 +84,6 @@ module.exports = {
   searchByCategory,
   searchByPriceRange,
     searchSweets,
+    sortSweets,
   __resetSweets,
 };
