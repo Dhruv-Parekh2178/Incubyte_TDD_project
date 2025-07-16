@@ -301,3 +301,19 @@ test("should purchase a sweet and reduce quantity", () => {
   const updated = getAllSweets().find((s) => s.id === 8001);
   expect(updated.quantity).toBe(7);
 });
+
+test('should not allow purchase if insufficient quantity', () => {
+  const sweet = {
+    id: 8002,
+    name: 'Rasgulla',
+    category: 'Milk-Based',
+    price: 25,
+    quantity: 5
+  };
+
+  addSweet(sweet);
+
+  const { purchaseSweet } = require('../src/sweetShop');
+
+  expect(() => purchaseSweet(8002, 10)).toThrow('Not enough stock available.');
+});
