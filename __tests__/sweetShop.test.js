@@ -5,7 +5,8 @@ let addSweet,
   searchByCategory,
   searchByPriceRange,
   searchSweets,
-  sortSweets;
+  sortSweets,
+  purchaseSweet;
 
 beforeEach(() => {
   jest.resetModules();
@@ -20,6 +21,7 @@ beforeEach(() => {
   searchByPriceRange = sweetShop.searchByPriceRange;
   searchSweets = sweetShop.searchSweets;
   sortSweets = sweetShop.sortSweets;
+  purchaseSweet = sweetShop.purchaseSweet;
 });
 
 test("should add a new sweet to the shop", () => {
@@ -280,4 +282,22 @@ test("should sort sweets by price in ascending and descending order", () => {
 
   const descending = sortSweets("price", "desc");
   expect(descending.map((s) => s.price)).toEqual([50, 40, 30]);
+});
+
+test("should purchase a sweet and reduce quantity", () => {
+  const sweet = {
+    id: 8001,
+    name: "Gulab Jamun",
+    category: "Milk-Based",
+    price: 30,
+    quantity: 10,
+  };
+
+  addSweet(sweet);
+
+  const { purchaseSweet, getAllSweets } = require("../src/sweetShop");
+
+  purchaseSweet(8001, 3);
+  const updated = getAllSweets().find((s) => s.id === 8001);
+  expect(updated.quantity).toBe(7);
 });

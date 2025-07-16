@@ -75,6 +75,20 @@ function sortSweets(field, order = 'asc') {
   return sorted;
 }
 
+function purchaseSweet(id, quantityToBuy) {
+  const sweet = getSweetList().find(s => s.id === id);
+
+  if (!sweet) {
+    throw new Error('Sweet not found.');
+  }
+
+  if (sweet.quantity < quantityToBuy) {
+    throw new Error('Not enough stock available.');
+  }
+
+  sweet.quantity -= quantityToBuy;
+}
+
 
 module.exports = {
   addSweet,
@@ -85,5 +99,6 @@ module.exports = {
   searchByPriceRange,
     searchSweets,
     sortSweets,
+    purchaseSweet,
   __resetSweets,
 };
